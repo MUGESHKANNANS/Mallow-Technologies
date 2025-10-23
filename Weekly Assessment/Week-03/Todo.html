@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Todo List</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="Todo.css">
+</head>
+<body>
+  <div class="container">
+    <div class="input">
+      <input type="text" id="todoInput" placeholder="Enter your task...">
+      <button id="addBtn">Add Task</button>
+    </div>
+    <hr>
+    <ul id="todoList"></ul>
+  </div>
+
+  <script>
+    const input = document.getElementById("todoInput");
+    const addBtn = document.getElementById("addBtn");
+    const list = document.getElementById("todoList");
+
+    const defaultTodos = [
+      { text: "Go Shopping", completed: false },
+      { text: "Watch Movies", completed: false },
+      { text: "Play Games", completed: false },
+      { text: "Go Fishing", completed: false }
+    ];
+
+    let todos = JSON.parse(localStorage.getItem("todos")) || [];
+    if (todos.length === 0) {
+      todos = defaultTodos;
+      localStorage.setItem("todos", JSON.stringify(todos));
+    }
+
+    let editIndex = null;
+
+    function renderTodos() {
+      list.innerHTML = "";
+
+      todos.forEach((todo, index) => {
+        const li = document.createElement("li");
+        li.className = todo.completed ? "completed" : "";
+
+        li.innerHTML = `
+          <div class="task">
+            <input type="checkbox" ${todo.completed ? "checked" : ""} onchange="toggleComplete(${index})">
+            <span>${todo.text}</span>
+          </div>
+          <div class="icons">
+            <i class="fa-solid fa-pen-to-square" title="Edit" onclick="editTask(${index})"></i>
+            <i class="fa-solid fa-trash" title="Delete" onclick="deleteTask(${index})"></i>
+          </div>
+        `;
+        list.appendChild(li);
+      });
+
+      localStorage.setItem("todos", JSON.stringify(todos));
+    }
+
+    function addTask() {
+      const text = input.value.trim();
+      if (!text) {
+        alert("Please enter a task!");
+        return;
+      }
+
+      if (editIndex !== null) {
+        todos[editIndex].text = text;
+        editIndex = null;
+        addBtn.textContent = "Add Task";
+      } else {
+        todos.push({ text, completed: false });
+      }
+
+      input.value = "";
+      renderTodos();
+    }
+
+    function editTask(index) {
+      input.value = todos[index].text;
+      editIndex = index;
+      addBtn.textContent = "Update Task";
+      input.focus();
+    }
+
+    function deleteTask(index) {
+      if (confirm("Are you sure you want to delete this task?")) {
+        todos.splice(index, 1);
+        renderTodos();
+      }
+    }
+
+    function toggleComplete(index) {
+      todos[index].completed = !todos[index].completed;
+      renderTodos();
+    }
+
+    addBtn.addEventListener("click", addTask);
+
+    window.addEventListener("load", renderTodos);
+  </script>
+</body>
+</html>
