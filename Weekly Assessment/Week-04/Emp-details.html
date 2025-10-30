@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Employee Details</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+  <link rel="stylesheet" href="Emp-details.css">
+
+</head>
+<body>
+  <div class="header">
+    <h2>Employees Details</h2>
+    <button class="add-btn" onclick="openModal()">
+        <i class="fa-solid fa-plus"></i> Add New Employee
+    </button>
+  </div>
+
+  <table id="employeeTable">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Name</th>
+        <th>Address</th>
+        <th>Salary</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody id="tableBody"></tbody>
+  </table>
+  <div id="employeeModal" class="modal">
+    <div class="modal-content">
+      <h3 id="modalTitle">Add New Employee</h3>
+      <div class="form-group">
+        <label>Name</label>
+        <input type="text" id="nameInput" placeholder="Enter name" required minlength="2"  oninput="validateName(this)">
+      </div>
+      <div class="form-group">
+        <label>Address</label>
+        <textarea id="addressInput" placeholder="Enter address" required></textarea>
+      </div>
+      <div class="form-group">
+        <label>Salary</label>
+        <input type="number" id="salaryInput" placeholder="Enter salary" required min="0" max="999999999999">
+      </div>
+      <div class="modal-actions">
+        <button class="cancel-btn" onclick="closeModal()">Cancel</button>
+        <button class="save-btn" onclick="saveEmployee()">Save</button>
+      </div>
+    </div>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
