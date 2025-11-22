@@ -1,0 +1,25 @@
+.page-container {
+  padding: 30px;
+  background: #fafafa;
+  min-height: 100vh;
+}
+
+.header-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.title {
+  margin: 0;
+  font-size: 32px;
+  font-weight: 700;
+}
+
+.ant-table td {
+  padding: 18px !important;
+}
+.wrap-text {
+  white-space: normal !important;
+  word-break: break-word;
+}
