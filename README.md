@@ -68,5 +68,3 @@ This repository acts as a reference for my learning journey and hands-on experie
 ## Author
 
 **Mugesh Kannan S**  
-React Trainee | Frontend Developer  
-Mallow Technologies
